@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tende Tudo
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- diretiva estrutural @for -->
+  @for (produto of produtos; track produto.id) {
+    <ion-card [routerLink]="['/detalhes', 'produto.id']">
+      <img [src]="produto.image" alt="">
+      <ion-card-header>
+        <ion-button [routerLink]="['/detalhes']">Ver Detalhes</ion-button>
+        <!-- interpolação -->
+        <ion-card-title> {{ produto.title }} </ion-card-title>
+        <!-- pipe builtin -->
+        <ion-card-subtitle>{{ produto.price | currency:'BRL' }}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  }
+</ion-content>
+<ion-footer>
+
+  <ion-toolbar>
+    <ion-title>Sigma</ion-title>
+     <p>"tudoquevoceprocura1221@gmail.com"></p>
+  </ion-toolbar>
+</ion-footer>
