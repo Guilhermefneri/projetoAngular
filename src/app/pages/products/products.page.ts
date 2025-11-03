@@ -1,25 +1,60 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { RouterLink } from '@angular/router';
+import { IonSpinner, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton } from '@ionic/angular/standalone';
+import { ProductService } from '../../services/product.service';
+
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: string;
+  image: string;
+}
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, IonicModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    RouterLink,
+    IonSpinner,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardSubtitle,
+    IonCardContent,
+    IonButton
+  ],
   templateUrl: './products.page.html',
   styleUrls: ['./products.page.scss'],
 })
 export class ProductsPage implements OnInit {
-  products: any[] = [];
+  products: Product[] = [];
+  error: string = '';
+  loading: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit() {
-    this.http.get<any[]>('https://fakestoreapi.com/products').subscribe({
-      next: (res) => (this.products = res),
-      error: (err) => console.error('Erro ao carregar produtos:', err),
+    this.loadProducts();
+  }
+
+  private loadProducts() {
+    this.loading = true;
+    this.productService.getProducts().subscribe({
+      next: (res) => {
+        this.products = res;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Erro ao carregar produtos: ' + err.message;
+        this.loading = false;
+        console.error('Erro ao carregar produtos:', err);
+      }
     });
   }
 }
-
