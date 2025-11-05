@@ -10,7 +10,6 @@ export class ApiService {
   private base = environment.apiUrl;
   private http = inject(HttpClient);
 
-
   getHello(): Observable<any> {
     return this.http.get(`${this.base}/hello`);
   }

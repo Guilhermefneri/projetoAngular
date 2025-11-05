@@ -42,6 +42,7 @@
 }
 
 .about-body li {
+  list-style: none;
   margin-bottom: 0.5rem;
   color: #e6e6e6 !important;
 }
@@ -54,6 +55,6 @@
   text-align: center;
   margin-top: 2rem;
 }
-
-
-
+.button-native{
+  box-shadow: none;
+}
